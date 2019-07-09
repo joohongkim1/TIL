@@ -33,7 +33,12 @@ $ git add ______
 $ git commit -m <- 필수
 $ git config --global ______ ->  arguments 2개
 
+$ git push ____ master
+
+$ git pull ___ master  --> 중요함 ********
+
 **중요**
+
 - 자리를 옮기게 되면 git 초기화를 해야함
 1. git bash 실행 후 , 미리 설정되었을지 모를 계정 정보 삭제(처음 설치 시 생략 가능)
 $ git config --global --unset credential.helper
@@ -44,4 +49,14 @@ $ git credential reject
 protocol=https
 host=github.com
 
-- 진행하고 있는 폴더 안에서만 git init 해야됨
+- 진행하고 있는 폴더 안에서만 git init 해야
+
+* git status, git log
+
+* git remote -v ->>> remote :  원격저장소를 관리하는 키워드
+* git remote add ____  ____  -> 원격 저장소 이름 , 주소 
+
+
+
+mkdir uijeongbu
+
