@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MOVIE</title>
+</head>
+<body>
+    <h1>영화 목록</h1>
+    <ul>
+        {% for movie in movies %}  <!--템플릿 태그-->
+             <li>{{ movie }}</li>
+        {% endfor %}
+
+    </ul>
+|</body>
+</html>

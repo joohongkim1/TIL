@@ -1,11 +1,13 @@
-from flask import Flask # 모듈을 임포트 시켜서 파이썬 파일을 실행할 수 있다. ex) import hello
+from flask import Flask, render_template  # 모듈을 임포트 시켜서 파이썬 파일을 실행할 수 있다. ex) import hello
 import datetime
 import random
 app = Flask(__name__)
 
 @app.route("/") # 데코레이터 , endpoint
 def hello(): # def : 함수 생성 , -> Hello Ssafy를 반환하는 hello라는 함수를 만듦.
-    return "Hello Ssafy!"
+    # return "Hello Ssafy!"
+    return render_template('index.html') # render_template('작성할 템플릿의 이름')
+
 
 @app.route('/ssafy')
 def ssafy():
@@ -35,11 +37,12 @@ def html_lines():
 # Variable Routing
 @app.route('/greeting/<name>') # IU
 def greeting(name): # name == IU
-    return f'반갑습니다! {name}님'
+    return render_template('greeting.html', html_name=name)  
 
 @app.route('/cube/<int:num>')  # int값을 넣되, 이름을 num으로 지정
 def cube(num):
-    return f'{num}의 3제곱은 {num ** 3} 입니다.'
+    result = num ** 3
+    return render_template('cube.html', num=num, result=result)
 
 # 실습
 @app.route('/lunch/<int:people>')
@@ -51,7 +54,14 @@ def lunch(people):
     order = random.sample(menu, people)
     return str(order)
 
- 
+
+@app.route('/movie')
+def movie():
+    movies = ['스파이더맨', '엔드게임', '기생충', '알라딘']
+    return render_template('movie.html', movies=movies)
+
+
+# html 파일 보관 폴더명 templates  으로
 
 
 
