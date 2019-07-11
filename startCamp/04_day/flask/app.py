@@ -45,6 +45,40 @@ def ascii_result():
     result = response.text
     return render_template('ascii_result.html', result=result) 
 
+
+# 사용자가 input을 입력할 페이지를 전달하는 route 
+# 사용자가 input을 입력한 정보를 받아 공정과정을 거쳐 사용자에게 다시 보내주는 route
+
+@app.route('/lotto_input')
+def lotto_input():
+        # 사용자가 입력할 수 있는 페이지만 전달
+        return render_template('lotto_input.html')
+
+
+
+@app.route('/lotto_result') 
+def lotto_result():
+    lotto_round = request.args.get('round')
+    lotto_numbers = request.args.get('numbers').split()
+
+    url = f'https://www.nlotto.co.kr/common.do?method=getLottoNumber&drwNo={lotto_round}'
+
+    response = requests.get(url)
+    # 사용자가 보기 편한 게 html , 개발자가 특정 정보만 원할 때 Json
+    lotto_info = response.json() # Jason 타입의 파일을 python dictionary 로 parsing 해줘
     
+    if lotto_round == lotto_info['drwNo'] and 
+
+    print(lotto_info['drwtNo1'])
+    print(lotto_info['drwtNo2'])
+    print(lotto_info['drwtNo3'])
+    print(lotto_info['drwtNo4'])
+    print(lotto_info['drwtNo5'])
+    print(lotto_info['drwtNo6'])
+
+
+    return f'{lotto_round},{lotto_numbers}'
+
+
 if __name__ == '__main__':
     app.run(debug=True)
