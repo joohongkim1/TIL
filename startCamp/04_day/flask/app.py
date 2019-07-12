@@ -59,26 +59,44 @@ def lotto_input():
 @app.route('/lotto_result') 
 def lotto_result():
     lotto_round = request.args.get('round')
-    lotto_numbers = request.args.get('numbers').split()
+    lotto_numbers = request.args.get('numbers').split() # ['1', '2', '3' ...]
 
     url = f'https://www.nlotto.co.kr/common.do?method=getLottoNumber&drwNo={lotto_round}'
 
     response = requests.get(url)
     # 사용자가 보기 편한 게 html , 개발자가 특정 정보만 원할 때 Json
     lotto_info = response.json() # Jason 타입의 파일을 python dictionary 로 parsing 해줘
-    
-    if lotto_round == lotto_info['drwNo'] and 
 
-    print(lotto_info['drwtNo1'])
-    print(lotto_info['drwtNo2'])
-    print(lotto_info['drwtNo3'])
-    print(lotto_info['drwtNo4'])
-    print(lotto_info['drwtNo5'])
-    print(lotto_info['drwtNo6'])
+    winner = [] # [1, 2, 3, 4 ...]  winner 리스트와 lotto_numbers 리스트의 타입을 맞춰줘야한다.
+    bns = str(lotto_info['bnusNo'])
+    for i in range(1, 7):
+        winner.append(str(lotto_info[f'drwtNo{i}']))
 
+    # 번호 교집합 개수 찾기    
+    if len(lotto_numbers) == 6: # 사용자가 보낸 수가 6개가 맞는지
+        matched = 0        
+        for number in lotto_numbers:
+            if number in winner:
+                matched += 1
 
-    return f'{lotto_round},{lotto_numbers}'
+        print(matched)
+        if matched == 6:
+            result = '1등'
+        elif matched == 5:
+            if bns in lotto_numbers:
+                result = '2등'
+            else:
+                result = '3등' 
+        elif matched == 4:
+            result = '4등' 
+        elif matched == 3:
+            result = '5등'
+        else:
+            result = '꽝'  
+    else:
+        result = '입력하신 숫자가 6개가 아닙니다.'
 
+    return render_template('lotto_result.html', result=result)
 
 if __name__ == '__main__':
     app.run(debug=True)
